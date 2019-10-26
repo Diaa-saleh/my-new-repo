@@ -1,0 +1,37 @@
+<%- include('parts/header')%>
+<%- include('parts/nav')%>
+
+<div class="container">
+        <% if(amountError) { %> 
+            <p class="alert alert-danger"><%= amountError.msg %></p>
+         <% } %>
+    <% if(!product) { %>
+        <div class="alert-danger"> no data here : your id isn't available .</div>
+    <% } else {%>
+        <div class="row">
+            <div class="col col-12 col-md-6 product-col">
+                <img src="/<%= product.image%>" alt="" class="width-height">
+                <form action="/cart" method="POST">
+                    <input type="hidden" name="productName" value="<%= product.name%>">
+                    <input type="hidden" name="price" value="<%= product.price%>">
+                    <input type="hidden" name="category" value="<%= product.category%>">
+                    <input type="hidden" name="product_id" value="<%= product._id%>">
+                    <input type="hidden" name="redirectTo" value="product/<%= product._id%>">
+
+                    <input type="number" name="amount" class="form-control">
+                    
+                    <input type="submit" value='Add to cart' class="btn btn-primary add-cart">
+                </form>
+            </div>
+            <div class="col col-12 col-md-6 product-col">
+                <h3><%= product.name %></h3>
+                <h5><%= product.price %></h5>
+                <p><%= product.description %></p>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+
+
+<%- include('parts/footer')%>

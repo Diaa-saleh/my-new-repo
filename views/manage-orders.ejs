@@ -1,0 +1,64 @@
+<%- include('parts/header')%>
+<%- include('parts/nav')%>
+
+<div class="container text-center" style="margin-top: 15px;">
+    <form method="Get" action="/admin/orders">
+        <input type="submit" value="All"  name="status" class="btn btn-primary">
+        <input type="submit" value="pending"  name="status" class="btn btn-primary">
+        <input type="submit" value="sent"  name="status" class="btn btn-primary">
+        
+        <input type="submit" value="completed"  name="status" class="btn btn-primary">
+    </form>
+     <form method="Get" action="/admin/orders">
+        
+        <input type="search" name="search" id="" style="padding: 5px;width: 300px;border: 1px solid #888;outline: none; border-radius: 5px;">
+        <input type="submit" value="search"   class="btn btn-primary">
+    </form>
+
+    <table>
+        <thead>
+           <td>Email</td>
+           <td>product name</td>
+           <td>amount</td>
+           <td>cost</td>
+           <td>address</td>
+           <td>status</td>
+           <td>time</td>
+           <td>edit</td>
+           
+        </thead>
+           <tbody>
+              <% for(let i = 0; i < orders.length; i++) { %>
+
+                 
+                 <tr>
+                        <% let email = users.find(user => user._id == orders[i].id).email %>
+                    <td> <%= email %> </td>
+                    <td> <%= orders[i].product %> </td>
+                    <td> <%= orders[i].amount %> </td>
+                    <td> <%= orders[i].price * orders[i].amount %> </td>
+                    <td> <%= orders[i].address %> </td>
+                    
+                    <form method="POST" action="/admin/orders/save">
+                        <input type="hidden" name="product_Id" value="<%= orders[i].product_Id %>">
+                        <td> 
+                            <select name="status">
+                                <option value="pending" <%= orders[i].status === "pending"? "selected" : "" %> >Pending</option>
+                                <option value="sent" <%= orders[i].status === "sent" ? "selected" : "" %>>Sent</option>
+                                <option value="completed" <%= orders[i].status === "completed" ? "selected" : "" %>>Completed</option>
+                            </select> 
+                        </td>
+                        <td> <%= orders[i].timeStamp%> </td>
+                        <td>
+                            <input type="submit" class="btn btn-success" value="save">
+                        </td>
+                    </form>
+                 </tr>
+              <% } %>
+           </tbody>
+           
+        
+     </table>
+</div>
+
+<%- include('parts/footer')%>

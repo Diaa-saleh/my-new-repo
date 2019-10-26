@@ -1,0 +1,31 @@
+
+
+.product-col{
+    border: 1px solid darkred;
+    margin-top: 8px;
+}
+.width-height{
+    height: 300px;
+}
+
+.add-cart{
+    margin-top: 10px;
+}
+table{
+    margin: 10px;
+}
+table, thead, tbody, td{
+    border: 1px solid #753;
+    border-collapse: collapse;
+    padding: 20px;
+}
+
+.deleteall-orderall{
+    position: absolute;
+    bottom: 0;
+    right: 50px;
+}
+.img-test{
+    height: 250px;
+    width: 250px;
+}

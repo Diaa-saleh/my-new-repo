@@ -1,0 +1,36 @@
+
+   <%- include('parts/header')%>
+   <%- include('parts/nav')%>
+
+   <div class="container text-center">
+       <h3>Add Product</h3>
+       <form action="/admin/add" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" class="form-control">
+        <%let nameError = validationErrors.find(err => err.param == "name") %>
+        <% if(nameError) { %>
+            <p class=" alert alert-danger"><%= nameError.msg%></p>
+        <% } %>    
+        <input type="number" name="price" class="form-control">
+        <%let priceError = validationErrors.find(err => err.param == "price") %>
+        <% if(priceError) { %>
+            <p class=" alert alert-danger"><%= priceError.msg%></p>
+        <% } %> 
+        <input type="text" name="category" class="form-control">
+        <%let categoryError = validationErrors.find(err => err.param == "category") %>
+        <% if(categoryError) { %>
+            <p class=" alert alert-danger"><%= categoryError.msg%></p>
+        <% } %> 
+        <textarea name="description" class="form-control" cols="30" rows="10"></textarea><br>
+        <%let descriptionError = validationErrors.find(err => err.param == "description") %>
+        <% if(descriptionError) { %>
+            <p class=" alert alert-danger"><%= descriptionError.msg%></p>
+        <% } %> 
+        <input type="file" name="image" class="from-control"><br><br><br>
+        <%let imageError = validationErrors.find(err => err.param == "image") %>
+        <% if(imageError) { %>
+            <p class=" alert alert-danger"><%= imageError.msg%></p>
+        <% } %> 
+        <input type="submit" value="Add Product" class="btn btn-primary form-control">
+        </form>
+   </div>
+   <%- include('parts/footer')%>

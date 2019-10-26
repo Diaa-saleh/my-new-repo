@@ -1,0 +1,63 @@
+
+   <%- include('parts/header')%>
+   <%- include('parts/nav')%>
+   
+      <table>
+         <thead>
+            <td>no</td>
+            <td>product name</td>
+            <td>price</td>
+            <td>amount</td>
+            <td>total</td>
+            <td></td>
+         </thead>
+            <tbody>
+               <% for(let i = 0; i < items.length; i++) { %>
+
+                  
+                  <tr>
+                     <td><%= i + 1 %></td>
+                     <td><%= items[i].product %></td>
+                     <td><%= items[i].price %></td>
+                     
+                     
+                     <form method="POST">
+                        <td><input type="text" name="amount" value="<%= items[i].amount %>"></td>
+                        <td><%= items[i].price * items[i].amount %></td>
+                        
+                        <td>
+                              <input type="hidden" name="cartId" value="<%= items[i]._id%>">
+                              <input type="hidden" name="productName" value="<%= items[i].product %>">
+                              <input type="hidden" name="price" value="<%= items[i].price %>">
+                              <input type="hidden" name="timestamp" value="<%= items[i].timestamp %>">
+                              <input type="submit" class="btn btn-success" value="save" formaction="/cart/save">
+                              <input type="hidden" name="check" value="true">
+                              <input type="submit" class="btn btn-info" value="order" formaction="/cart/verfiyorder">
+                              <input type="submit" class="btn btn-danger" value="delete" formaction="/cart/delete">
+                        </td>
+                     </form>
+                  </tr>
+               <% } %>
+            </tbody>
+            
+         
+      </table>
+      <% if(amountError) { %>
+         <P class="alert alert-danger"><%= amountError.msg %></P>
+
+      <% } %>
+      <div class="container deleteall-orderall">
+         <form method="POST">
+            <% if(items.length !== 0){ %>
+               <input type="hidden" name="cartId" value="<%=items[0]._id%>">
+        
+            <% } %>
+                        
+            <input type="hidden" name="check" value= "false">
+            <input type="submit" class="btn btn-info" value="orderAll" formaction="/cart/orderAll">
+            <input type="submit" class="btn btn-danger" value="deleteAll" formaction="/cart/deleteAll">
+            
+            
+         </form>
+      </div>
+   <%- include('parts/footer')%>

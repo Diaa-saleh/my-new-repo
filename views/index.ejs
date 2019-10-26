@@ -1,0 +1,64 @@
+
+   <%- include('parts/header')%>
+   <%- include('parts/nav')%>
+
+    <div class="container " id="test-to-do">
+        <form action="/" method="GET">
+            <select name="catogery" class="form-control">
+                <option value="all">All</option>
+                <option value="phones">Phones</option>
+                <option value="computers">Computers</option>
+                <option value="clothes">Clothes</option>
+            </select>
+            <input type="submit" class="btn btn-primary" type="filter">
+        
+        </form>
+
+        <% if(amountError) { %> 
+            <p class="alert alert-danger"><%= amountError.msg %></p>
+         <% } %>
+        <div class="row">
+            
+            <%if(products.length === 0) {%>
+                <div class="alert-danger"> ther is no data </div>
+            <%} else {%>
+                <% for(let product of products){ %>
+                    <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="<%= product.image%>" class="card-img-top width-height" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="/product/<%= product._id%>"><%= product.name%></a>
+                                </h5>
+                                <p>Price : <%= product.price%> $</p>
+                                <form action="/cart" method="POST">
+                                    <input type="hidden" name="productName" value="<%= product.name%>">
+                                    <input type="hidden" name="price" value="<%= product.price%>">
+                                    <input type="hidden" name="category" value="<%= product.category%>">
+                                    <input type="hidden" name="product_id" value="<%= product._id%>">
+                                    <input type="hidden" name="redirectTo" value="/">
+
+                                    <input type="number" name="amount" class="form-control">
+                                    
+                                    <input type="submit" value='Add to cart' class="btn btn-primary add-cart">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <%}%>
+            <% } %>
+            
+        </div>
+        <input type="text" id="input-test" class="form-control" required>
+       <button id="btn" class="alert alert-secondary">send data</button>
+       
+       <% if(posts.length > 2) { %>
+        <p class="alert alert-danger"><%= posts[0].value %></p>
+        <p class="alert alert-danger"><%= posts[1].value %></p>
+       <% } %>
+        
+       <button id="display-btn" class="alert alert-success">Fetch data</button>
+    </div>
+   <%- include('parts/footer')%>
+
+   
